@@ -1,6 +1,7 @@
 from fastapi import FastAPI, UploadFile
 from fastapi.responses import RedirectResponse
 from services.process_pdf import ProcessPDF
+from services.transformer import Transformer
 
 app = FastAPI()
 
@@ -14,7 +15,12 @@ async def root():
 
 @app.post("/upload")
 async def upload(file: UploadFile):
+
   process_pdf = ProcessPDF(file)
   chunks = process_pdf.get_chunks()
-  lines = [c["text"] for c in chunks]
-  return { "data": lines }
+
+  transformer = Transformer(chunks)
+  transformer.embed_chunks()
+  vector_data = transformer.get_data()
+
+  return { "data": vector_data }
