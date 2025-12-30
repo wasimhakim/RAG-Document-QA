@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
 from fastapi.responses import RedirectResponse
 
 app = FastAPI()
@@ -10,3 +10,7 @@ def redirect_to_health():
 @app.get("/health")
 async def root():
   return { "message": "Hello I am working :)"}
+
+@app.post("/upload")
+async def upload(file: UploadFile):
+  return { "filename": file.filename}
