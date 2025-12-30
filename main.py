@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile
 from fastapi.responses import RedirectResponse
+from services.process_pdf import ProcessPDF
 
 app = FastAPI()
 
@@ -13,4 +14,7 @@ async def root():
 
 @app.post("/upload")
 async def upload(file: UploadFile):
-  return { "filename": file.filename}
+  process_pdf = ProcessPDF(file)
+  chunks = process_pdf.get_chunks()
+  lines = [c["text"] for c in chunks]
+  return { "data": lines }
