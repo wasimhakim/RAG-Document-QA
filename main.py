@@ -20,7 +20,6 @@ async def upload(file: UploadFile):
   chunks = process_pdf.get_chunks()
 
   transformer = Transformer(chunks)
-  transformer.embed_chunks()
-  vector_data = transformer.get_data()
+  data = transformer.search("education")
 
-  return { "data": vector_data }
+  return { "data": data }
