@@ -26,7 +26,7 @@ class Transformer:
   def search(self, query):
     query_vector = self.model.encode_query(query, convert_to_tensor=True)
 
-    top_k = min(2, len(self.data))
+    top_k = min(5, len(self.data))
     similarity_scores = self.model.similarity(query_vector, self.vectors)[0]
     scores, indices = torch.topk(similarity_scores, k=top_k)
 
