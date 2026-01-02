@@ -1,6 +1,6 @@
 from ollama import chat, ChatResponse
 
-class Ask:
+class LLMService:
   def question(self, query, context):
     response: ChatResponse = chat(model='qwen2.5:7b', messages=[
       {

@@ -1,6 +1,6 @@
 import pymupdf
 from fastapi import UploadFile
-
+  
 class ProcessPDF:
   data = ""
 
